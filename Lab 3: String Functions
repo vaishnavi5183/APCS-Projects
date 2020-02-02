@@ -1,0 +1,141 @@
+
+ //Counts number of spaces in string
+public static int spaceCount(String s){
+       int numberOfSpaces = 0;
+       for (int i = 0; i <s.length() ; i++) {
+           String character = s.substring(i, i+1);//for loop checks every character
+           if(character.compareTo(" ") == 0){
+               numberOfSpaces++;//If character is a space, then adds 1 to numberofSpaces
+           }//end if statement
+
+       }//end for loop
+       return numberOfSpaces;
+   }//end spaceCount
+
+
+
+
+//Counts number of vowels in string
+public static int vowelCount(String s){
+       int numberOfVowels = 0;
+       for (int i = 0; i <s.length() ; i++) {
+           String character = s.substring(i, i+1);//Allows program to check each character
+           if(character.compareTo("a")==0 ||character.compareTo("e")==0 || character.compareTo("i")==0||character.compareTo("o")==0||character.compareTo("u")==0){
+               numberOfVowels++;//If character is a vowel, adds one to numberOfVowels
+           }//end if statement
+       }//end for loop
+       return numberOfVowels;
+   }//end vowelCount
+
+
+
+
+
+
+//returns how many times a letter is in a string
+public static int letterCount(String s, String letter){
+       int letterCount = 0;
+   for (int i = 0; i < s.length(); i++) {
+       String character = s.substring(i, i+1);//Checks each character in string
+       if(character.compareTo(letter)==0){
+           letterCount++;//If character is equal to the letter, then adds 1 to letterCount
+       }//end if statement
+   }//end for loop
+   return letterCount;
+}//end letterCount
+
+
+
+//Duplicates letter called in function, every time it appears in string
+public static String duplicate(String s, String letter){
+       String duplicateS = "";//Creates empty string
+       int sLength = s.length();
+   for (int i = 0; i < sLength ; i++) {
+       String character = s.substring(i, i+1);//Checks each character in string
+       if(character.compareTo(letter)!=0){
+           duplicateS = duplicateS + character;//If character is not = to letter, then add character normally
+       }//end if statement 1
+       if(character.compareTo(letter)==0){
+           duplicateS = duplicateS + character + character;//If character is = letter, duplicate character
+       }//end if statement 2
+   }//end for loop
+   return duplicateS;
+}//end duplicate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Returns portion of string that comes before substr
+public static String beforeString(String s, String substr){
+       int index = s.indexOf(substr);//Finds index of substr
+       if(index == -1){
+           return s;//Returns whole string if substr is not found
+       }//end if statement
+       else{
+           return s.substring(0, index);//if found, returns everything before substr
+       }//end else statement
+}//end beforeString
+
+
+
+
+//Returns portion of string that comes after substr
+public static String afterString(String s, String substr){
+       int index = s.indexOf(substr);//Finds index of substr
+       if(index == -1){
+           return "";//Returns empty string if not found
+       }//end if statement
+       else{
+           return s.substring(index+substr.length());//If found returns everything after substr
+       }//end else statement
+}//end afterString
+
+
+
+//Capitalizes vowels in string
+public static String capVowel(String s){
+       String duplicateS = "";//Creates empty string
+   for (int i = 0; i <s.length() ; i++) {
+       String character = s.substring(i, i+1);//Checks each character in string
+       if(character.compareTo("a")==0 || character.compareTo("e")==0 || character.compareTo("i")==0 || character.compareTo("o")==0 || character.compareTo("u")==0){
+           duplicateS = duplicateS + character.toUpperCase();//If vowel, capitalize & add it to empty string
+       }//end if statement
+       else{
+           duplicateS = duplicateS + character;//If not, leave it and add it to empty string
+       }//end else statement
+   }//end for loop
+   return duplicateS;
+}//end capVowel
+
+
+
+//Capitalizes first letter of each sentence
+public static String capFirstWord(String s){
+   String duplicateS = s.substring(0, 1).toUpperCase();//Capitalizes 1st word of s
+   for (int i = 1; i <s.length() ; i++) {
+       String character = s.substring(i, i+1);//checks each character
+       String beforeCharacter = s.substring(i-1, i);    
+   if(beforeCharacter.compareTo(".")==0){
+           duplicateS = duplicateS + character.toUpperCase();//if character before is a period, //capitalize
+
+       }//end if statement
+       else{
+           duplicateS = duplicateS + character;//If not, normally add character to string
+       }//end else statement
+   }//end for loop
+   return duplicateS;//returns correctly capitalized string
+}//end capFirstWord
+
+
+
+
