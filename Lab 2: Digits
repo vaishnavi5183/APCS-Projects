@@ -1,0 +1,94 @@
+
+
+//Task 1; Prints one Digit
+public static int onesDigit(int a){
+   return a%10;
+}//End onesDigit
+
+
+
+
+
+//Task 2; prints tens and ones digit
+public static int tensOnesDigit(int a){
+   return a%100;
+}//End tensOnesDigit
+
+
+
+
+//Task 3; returns only the tens digit
+public static int tensDigit(int a){
+  int x = a%100 - a%10;
+  return x/10;
+}//End tensDigit
+
+
+
+
+//Task 4: create 2 functions; one that returns hundreds digits, and one thousands //digit
+//First fn; return hundreds digit
+public static int hundredsDigits(int a){
+   int x = a%1000 - a%100;
+   return x/100;
+}//End hundredsDigits
+
+//Second fn; returns thousands digit
+public static int thousandsDigits(int a){
+   int x = a%10000 - a%1000;
+   return x/1000;
+}//End thousandsDigits
+
+
+//Task 5: fn that returns number of digits in number
+public static int countDigits(int a){
+         int countDigits = 0;
+         int d = 10; //d is power of 10 used to see if there are digits left
+         while (a/d >0){
+             countDigits++;
+             d = d*10;
+         }//end while loop; adds 1 to countDigits as long as there still is a digit
+         
+         countDigits++; //while loop doesn’t add first digit; this adds it up
+         return countDigits;
+         
+     }//End countDigits
+
+
+
+
+//Task 6: return number of even digits in number
+public static int countEvenDigit(int a){
+            int evenDigits = 0;
+            int number = a;
+            String numberString = Integer.toString(number); //Changes int to string
+            for(int i =0 ; i< numberString.length() ; i++){
+                char singleDigit = numberString.charAt(i);//Takes out each char in str
+                int singleDigitNumber = Character.getNumericValue(singleDigit);//char to int
+                if(singleDigitNumber%2 == 0){
+                    evenDigits++;
+                }//End if statement; if %2 returns 0, then the number is even
+            }//end for loop
+            return evenDigits;
+        } //end countEvenDigits
+
+
+
+
+//Task 7: return digits within range of values given
+public static int getDigits(int a, int biggestDigit, int smallestDigit){
+   int number = a;
+   String stringNumber = Integer.toString(number); //Int to str
+   String valuesTogether = "";
+   int length = stringNumber.length();
+   while(smallestDigit <= biggestDigit){
+       char singleDigit = stringNumber.charAt((length-1)-biggestDigit); //Finds correct digit in range
+       valuesTogether = valuesTogether + singleDigit; //adds correct digit to string
+       biggestDigit = biggestDigit-1; //So while loop keeps going
+   }//End while loop; while within a range, adds appropriate digits to valuesTogetherNumber
+   int valuesTogetherNumber = Integer.parseInt(valuesTogether); //Converts str to int
+   return valuesTogetherNumber;
+}//End getDigits
+
+
+
