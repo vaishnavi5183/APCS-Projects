@@ -1,0 +1,117 @@
+public class Main {
+   public static void main(String[] args) {
+	System.out.println(moneyToString(10, 24);
+       printSum(10, 24, 3, 90);
+       System.out.println(biggestMoney(10, 24, 3, 90, 1, 23));
+       printChangeFrom20(5, 12);
+   }
+   //Returns Money as words 
+//Money to string function Task 1
+   public static String moneyToString(int d, int c){
+       if (c<10) {
+           return "$" + d + ".0" + c;
+       }
+       else {
+           return "$" + d + "." + c;
+       }
+   }
+// Returns sum of money
+//Sum of Money function Task 2
+   public static void printSum(int d1, int c1, int d2, int c2){
+       int totalDollars = d1 + d2;
+       int totalCents = c1 + c2;
+       while(totalCents>99){
+           totalDollars++;
+           totalCents = totalCents-100;
+       }
+        if(totalCents < 10){
+           System.out.println("$" + totalDollars + ".0" + totalCents);
+       }
+       else{
+           System.out.println("$" + totalDollars + "." + totalCents) ;
+       }
+
+   }
+//Returns highest value
+//Highest Value function Task 3
+   public static int biggestMoney(int d1, int c1, int d2, int c2, int d3, int c3){
+       if(c1>100){
+           int dollars1 = c1/100;
+           d1 = d1 + dollars1;
+           c1 = c1 - dollars1*100;
+       }
+       if(c2>100){
+           int dollars2 = c2/100;
+           d2 = d2 + dollars2;
+           c2 = c2 - dollars2*100;
+       }
+       if(c3>100){
+           int dollars3 = c3/100;
+           d3 = d3 + dollars3;
+           c3 = c3 - dollars3*100;
+       }
+       if(d1>d2){
+           if(d1>d3){
+               return 1;
+           }
+           if(d3>d1){
+               return 3;
+           }
+       }
+       if(d2>d1){
+           if(d2>d3){
+               return 2;
+           }
+           if(d3>d2){
+               return 3;
+           }
+       }
+       else{
+           if(c1>c2){
+               if(c1>c3){
+                   return 1;
+               }
+               if(c3>c1){
+                   return 3;
+               }
+           }
+           if(c2>c1){
+               if(c2>c3){
+                   return 2;
+               }
+               if(c3>c2){
+                   return 3;
+               }
+           }
+       }
+
+       return 0;
+
+       //return zero if none of the money given is the highest
+
+   }
+//Returns change function Task 3
+   public static void printChangeFrom20(int d, int c){
+       if(c>100){
+           int extraDollar = c/100;
+           d = d + extraDollar;
+           c = c - extraDollar*100;
+       }
+       if(c==0){
+           d = 20-d;
+           System.out.println("$" + d + ".0" + c);
+       }
+       else{
+           c = 100 - c;
+           d = (20 - d)-1;
+           if(c<10){
+               System.out.println("$" + d + ".0" + c);
+
+           }
+           else{
+               System.out.println("$" + d + "." + c);
+           }
+       }
+
+   }
+}
