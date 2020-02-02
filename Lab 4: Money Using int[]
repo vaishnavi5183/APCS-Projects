@@ -1,0 +1,345 @@
+
+//Given the number of dollars and cents, construct a money abstraction
+//CONSTRUCTOR FUNCTION
+public static int[] createMoney(int dollars, int cents) {
+   while (cents > 100) {
+       cents = cents - 100;
+       dollars++;//adds a dollar for every 100 cents
+   }//end while loop
+   int[] moneyArray = new int[2];//creates array for dollars and cents
+   moneyArray[0] = dollars;
+   moneyArray[1] = cents;
+   return moneyArray;//returns array
+}//end createMoney
+
+
+
+
+//Given a money, create a separate copy of it
+//Constructor function
+public static int[] copyMoney(int[] money) {
+   int[] copyMoney = new int[money.length];//creates new array
+   for (int i = 0; i < money.length; i++) {
+       copyMoney[i] = money[i];//adds each element of the original array to new //copied array
+   }//end for loop
+   return copyMoney;//return copied array
+}//end copyMoney
+
+
+
+
+//Returns number of dollars
+//Accessor function
+public static int dollars(int[] money) {
+   while (money[1] > 100) {
+       money[1] = money[1] - 100;
+       money[0]++;//adds a dollar for every 100 cents
+   }//end while loop
+   return money[0];//returns amount of dollars
+}//end dollars
+
+
+
+
+//Returns number of cents 
+//Accessor function
+public static int cents(int[] money) {
+   while (money[1] > 100) {
+       money[1] = money[1] - 100;
+       money[0]++;//adds a dollar for every 100 cents
+   }// end while loop
+   return money[1];//returns number of cents
+}//end cents
+
+
+
+
+public static String moneyToString(int[] money) {
+   while (money[1] > 100) {
+       money[1] = money[1] - 100;
+       money[0]++;//Adds a dollar for every 100cents
+   }//end while loop
+   if (money[1] < 10) {
+       return "$" + money[0] + ".0" + money[1];
+   } //end if statement
+   else {
+       return "$" + money[0] + "." + money[1];
+   }//end else
+}//end moneyToString
+
+
+
+
+//Returns money as words
+//Accessor Function
+
+public static String moneyToText(int[] money) {
+   String rv = "";//returned string
+   while (money[1] > 100) {
+       money[1] = money[1] - 100;
+       money[0]++;//adds a dollar for every 100 cents
+   }//end while loop
+   String[] single_digits = new String[]{"zero", "one",
+           "two", "three", "four",
+           "five", "six", "seven",
+           "eight", "nine"};//Create array of ones elements
+   String[] two_digits = new String[]{"", "ten", "eleven", "twelve",
+           "thirteen", "fourteen",
+           "fifteen", "sixteen", "seventeen",
+           "eighteen", "nineteen"};//create array of double digits
+   String[] tens_multiple = new String[]{"", "", "twenty", "thirty", "forty",
+           "fifty", "sixty", "seventy",
+           "eighty", "ninety"};//create array of multiples of 10
+   int dollarsNum = money[0];//amount of dollars
+   String dollars = Integer.toString(money[0]);//converts dollars to string
+   int[] dollarsArray = new int[dollars.length()];//Makes an array of each digit in //dollar
+   for (int i = 0; i < dollarsArray.length; i++) {
+       dollarsArray[((dollarsArray.length) - 1) - i] = dollarsNum % 10;
+       dollarsNum = dollarsNum / 10;//adds each digit in array
+   }//end for loop
+   if (dollarsArray.length == 1) {
+       rv = rv + single_digits[dollarsArray[0]] + " dollars and ";//Adds single //digit dollars
+   }//end if
+   if (dollarsArray.length == 2) {//if dollars are 2 digits
+       if (dollarsArray[0] == 1) {
+           rv = rv + two_digits[dollarsArray[0]] + " dollars and ";//if the digits //are greater than 10, but less than 20
+       } //end if
+       else if (dollarsArray[0] == 0) {
+           rv = rv + single_digits[dollarsArray[0]] + " dollars and ";//if the //first digit is just a 0
+       } //end else if
+       else {
+           rv = rv + tens_multiple[dollarsArray[0]] + single_digits[dollarsArray[1]] + " dollars and ";//For all the other conditions
+       }//end else
+   }//end if
+   if (dollarsArray.length == 3) {//If number is 3 digit
+       if (dollarsArray[0] == 0) {
+           rv = rv + tens_multiple[dollarsArray[0]]  + single_digits[dollarsArray[1]] + " dollars and ";//if first digit is a zero
+       } //end if
+       else if (dollarsArray[1] == 1) {
+           rv = rv + single_digits[dollarsArray[0]] + " hundred " + two_digits[dollarsArray[1]] + " dollars and ";//if last 2 digits are >10, but<20
+       } //end else if
+       else if (dollarsArray[1] == 0) {
+           rv = rv + single_digits[dollarsArray[0]] + " hundred and " + single_digits[dollarsArray[2]] + " dollars and ";//if middle digit =0
+       } //end else if
+       else {//For all other conditions
+           rv = rv + single_digits[dollarsArray[0]] + " hundred " + tens_multiple[dollarsArray[1]]  + single_digits[dollarsArray[2]] + " dollars and ";
+       }//end else
+
+   }//end if
+
+   if (money[1] < 10) {
+       rv = rv + single_digits[money[1]] + " cents";
+   } //If cents is a single number
+   else {
+       int centsNum = money[1];
+       int[] centsArray = new int[2];//Creates array for each digit of cents
+       for (int i = 0; i < centsArray.length; i++) {
+           centsArray[(centsArray.length - 1) - i] = centsNum % 10;
+           centsNum = centsNum / 10;// adds each cents digit in array
+       }// end for loop
+       if (centsArray[0] == 1) {
+           rv = rv + two_digits[centsArray[0]] + " cents";//if first digit is a
+       } //end if
+       else if (centsArray[1] == 0) {
+           rv = rv + tens_multiple[centsArray[0]] + " cents";//if last digit is a zero
+       } //end else if
+       else {
+           rv = rv + tens_multiple[centsArray[0]] + single_digits[centsArray[1]] + " cents";//for all other conditions
+       }// end else
+   }//end else
+
+   return rv;
+}//end moneyToText
+
+
+
+
+// Returns True if m1 > m2.
+//Checking Fn
+public static boolean isGreaterThan(int[] m1, int[] m2) {
+   while (m1[1] > 100) {
+       m1[1] = m1[1] - 100;
+       m1[0]++;//adds a dollar for every 100 cents
+   }
+   while (m2[1] > 100) {
+       m2[1] = m2[1] - 100;
+       m2[0]++;//adds a dollar for every 100 cents
+   }
+   if (m1[0] > m2[0]) {
+       return true;
+   }//end if
+   else if (m2[0] > m1[0]) {
+       return false;
+   }//end else if
+   else {
+       if (m1[1] > m2[1]) {
+           return true;
+       } //end if
+       else if (m2[1] > m1[1]) {
+           return false;
+       } //end else if
+       else {
+           return false;
+       }//end else
+   }//end else
+}//end isGreaterThan
+
+
+
+
+public static boolean isEqual(int[] m1, int[] m2){
+   while (m1[1] > 100) {
+       m1[1] = m1[1] - 100;
+       m1[0]++;
+   }//end while
+   while (m2[1] > 100) {
+       m2[1] = m2[1] - 100;
+       m2[0]++;
+   }//end while
+   if(m1[0]==m2[0]&&(m1[1]==m2[1])){
+       return true;
+   }//end if
+   else{
+       return false;
+   }//end else
+}//end isEqual
+
+
+
+
+// Make m1 the sum of both m1 and m2. Leave m2 untouched.
+//Adding Function
+public static void adder(int[] m1, int[] m2){
+   m1[0] = m1[0] + m2[0];//adds dollars
+   m1[1] = m1[1] + m2[1];//adds cents
+   while (m1[1] > 100) {
+       m1[1] = m1[1] - 100;
+       m1[0]++;//adds a dollar for every 100 cents
+   }//end while
+   if(m1[1]<10){
+       System.out.println("$" + m1[0] + ".0" + m1[1]);
+   }// end if
+   else{
+       System.out.println("$" + m1[0] + "." + m1[1]);
+   }// end else
+}//end adder
+
+
+
+
+// Return the sum of both m1 and m2. m1 and m2 untouched.
+//Adding FUnction
+public static int[] add(int[] m1, int[] m2){
+   int totalDollars = m1[0] + m2[0];
+   int totalCents = m1[1] + m2[1];
+   while(totalCents>100){
+       totalCents = totalCents-100;
+       totalDollars++;//adds a dollar for every 100 cents
+   }//end while
+   int[] sumArray = new int[2];//creates a new array for sum
+   sumArray[0] = totalDollars;
+   sumArray[1] = totalCents;
+   return sumArray;
+}//end add
+
+
+
+// Make m1 the difference of m1 - m2. Leave m2 untouched.
+//Adding fn
+public static void subber(int[] m1, int[] m2){
+   if(m1[1]<m2[1]){//if m1cents<m2cents, add 100 to m1cents, and subtract a dollar
+       m1[1]=m1[1]+100;
+       m1[0] = m1[0]-1;
+   }//end if
+   m1[0] = m1[0]-m2[0];
+   m1[1] = m1[1]-m2[1];
+   while(m1[1]>100){//adds a dollar for every 100 cents
+       m1[1] = m1[1]-100;
+       m1[0]++;
+   }//end while
+   if(m1[1]<0){
+       System.out.print("$" + m1[0] + ".0" + m1[1]);
+   }//end if
+   else{
+       System.out.println("$" + m1[0] + "." + m1[1]);
+   }//end else
+}//end subber
+
+
+
+
+// Return the difference between m1 - m2. m1 and m2 untouched.
+//Adding fn
+public static int[] sub(int[] m1, int[] m2){
+   int dollars1 = m1[0];
+   int cents1 = m1[1];
+   int dollars2 = m2[0];
+   int cents2 = m2[1];
+   while(cents1<cents2){//adds 100 cents and subtracts a dollar if cents1<cents2
+       cents1 = cents1 + 100;
+       dollars1 = dollars1 -1;
+   }//end while
+   int[] subArray = new int[2];//new array of sum
+   subArray[0] = dollars1 - dollars2;
+   subArray[1] = cents1 - cents2;
+   while(subArray[1]>100){//adds a dollar for every 100 cents
+       subArray[1] = subArray[1]-100;
+       subArray[0]++;
+   }//end while
+   return subArray;
+}//end sub
+
+
+
+
+
+//Calculation Function
+//Returns change from 20 dollars
+public static int[] payWith20(int[] owe){
+   while(owe[1]>100){
+       owe[1] = owe[1]-100;
+       owe[0]++;
+   }//end while
+   int[] changeArray = new int[2];// new array with change
+   if(owe[1]==0){//if number of cents = 0, subtract dollars from 20
+       changeArray[0] = 20-owe[0];
+       changeArray[1] = owe[1];
+   }//end if
+   else{//subtract cents from 100 and dollars from 19
+       changeArray[0] = 19-owe[0];
+       changeArray[1]=100-owe[1];
+   }//end else
+   return changeArray;
+}//end payWith20
+
+
+
+
+
+//adds interest to balance
+//Calculation fn
+public static int[] applyInterest(int[] balance, int interest){
+   int[] dollarsWithInterest = new int[2];//new array with dollars + interest
+   int interestCents = balance[1]*interest;//multiplies interest with cents
+   int interestDollars = balance[0]*interest;
+   while(interestDollars>100){//adds a dollar if interestDollars is greater than 100
+       balance[0]++;
+       interestDollars= interestDollars-100;
+   }//end while
+   interestDollars = interestDollars*100;//multiplies interestDollars with 100
+   int totalInterest = interestDollars+interestCents;
+   while(totalInterest>100){//cuts down interest to hundredth place to add it to cents
+       if(totalInterest<1000){//rounds number
+           if((totalInterest%10)>=5){
+               balance[1] = balance[1] +1;//rounds number
+           }//end if
+       }//end if
+       totalInterest = totalInterest/10;
+   }//end while
+   dollarsWithInterest[0] = balance[0];
+   dollarsWithInterest[1] = balance[1] + totalInterest;
+   return dollarsWithInterest;
+}//end applyInterest
+
+
+
