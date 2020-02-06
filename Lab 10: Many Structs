@@ -1,0 +1,397 @@
+
+
+//Money Class
+public class Money {
+   int dollars;
+   int cents;
+   public Money(){
+
+   }//empty constructor
+   public Money(int d, int c){
+       dollars = d;
+       cents = c;
+   }
+}
+
+
+
+
+//Complex Number
+public class ComplexNumber {
+   int aValue;
+   int bValue;
+   public ComplexNumber(){
+         }//empty constructor
+   public ComplexNumber(int a, int b){
+       aValue = a;
+       bValue = b;
+   }
+}
+
+
+
+
+//Date Class
+public class DateClass {
+   int month;
+   int day;
+   int year;
+   public DateClass(){
+
+   }//empty constructor
+   public DateClass(int m, int d, int y){
+       month = m;
+       day = d;
+       year = y;
+   }
+}
+
+
+
+
+//Fraction
+public class Fraction {
+   int numerator;
+   int denominator;
+   public Fraction(){
+
+   }//empty constructor
+   public Fraction(int n, int d){
+       numerator = n;
+       denominator = d;
+   }
+}
+
+
+
+
+//Point
+public class Point {
+   double xCoordinate;
+   double yCoordinate;
+   public Point(){
+
+   }//empty constructor
+   public Point(double x, double y){
+       xCoordinate = x;
+       yCoordinate = y;
+   }
+}
+
+
+
+
+//Credit Card
+public class CreditCardAccount {
+   String firstName;
+   String lastName;
+   int accountNumber;
+   String bankName;
+   Money amountOfMoney;
+   int CVcNumber;
+   DateClass expirationDate;
+   String cardType;
+
+   public CreditCardAccount(){
+
+   }//empty constructor
+   public CreditCardAccount(String f, String l, int aNumber, String bName, int dollars, int cents,int cvc, int month,int year, String type){
+       firstName = f;
+       lastName = l;
+       accountNumber = aNumber;
+       bankName = bName;
+       amountOfMoney = new Money(dollars, cents);
+       CVcNumber = cvc;
+       expirationDate = new DateClass(month, 0, year);
+       cardType = type;
+   }
+}
+
+
+
+//Money Functions
+public static String moneyToString(Money m){
+   String rv = "";
+   while(m.cents>100){
+       m.dollars++;
+       m.cents = m.cents-100;
+   }//makes sure cents isn’t>100
+   if(m.cents<10){
+       rv = rv + "$" + m.dollars + ".0" + m.cents;
+   }
+   else{
+       rv = rv + "$" + m.dollars + "." + m.cents;
+   }//adds correct form of money to string
+  return rv;
+}//end moneyToString
+
+
+
+
+//returns sum of money
+public static Money add(Money m1, Money m2){
+   Money sum = new Money();//new money object
+   sum.dollars = m1.dollars + m2.dollars;//adds dollars
+   sum.cents = m1.cents + m2.cents;//adds cents
+   while(sum.cents>100){
+       sum.dollars++;
+       sum.cents = sum.cents-100;
+   }
+   return sum;
+}//end add
+
+
+
+
+
+public static Money payWith20(Money m){
+   Money change = new Money();
+   while(m.cents>100){
+       m.dollars++;
+       m.cents = m.cents-100;
+   }
+   change.dollars = 19-m.dollars;//changed $20 to $19+100 cents
+   change.cents = 100-m.cents;
+   while(change.cents>100){
+       change.dollars++;
+       change.cents = change.cents-100;
+   }
+   return change;
+}//end payWith20
+
+
+
+
+
+
+public static Money applyInterest(Money m, double interestRate){
+   interestRate = interestRate/100;
+   double interest = (m.dollars*interestRate)*10;//multiplies dollars //with interest
+   m.cents = m.cents + (int)interest;//adds interest to cents
+   while(m.cents>100){
+       m.cents = m.cents-100;
+       m.dollars++;
+   }
+   return m;
+}//end addInterest
+
+
+
+
+
+//Money Tasks
+public static void testCodeMoney(){
+//a:Create a 100 element array of Money objects with values $0.01 - //$1.00, and compute the sum
+   Money[] beforeSum = new Money[100];//makes money array
+   for (int i = 1; i <= beforeSum.length ; i++) {
+       beforeSum[i-1] = new Money(0,  i);
+   }//adds money into array
+   Money sum = new Money();
+   for (int j = 0; j <beforeSum.length ; j++) {
+       sum.cents = sum.cents + beforeSum[j].cents;
+   }//adds sum
+   while (sum.cents>100){
+       sum.dollars++;
+       sum.cents = sum.cents-100;
+   }
+   System.out.println(moneyToString(sum));//prints sum
+   //b:Simulate a person depositing $10 per day over the course of a year
+   // into a bank account that pays 1% interest monthly (round down) at the end of each month.
+   // How much has the person saved?, how much in bank acct at end?
+   Money deposited = new Money();
+   deposited.dollars = 10;
+   deposited.dollars = deposited.dollars*31;
+   deposited = applyInterest(deposited, 1);//adds Jan
+   deposited.dollars = deposited.dollars + 10*28;
+   deposited = applyInterest(deposited, 1);//adds Feb
+   deposited.dollars = deposited.dollars + 10*31;
+   deposited = applyInterest(deposited, 1);//March
+   deposited.dollars = deposited.dollars + 10*30;
+   deposited = applyInterest(deposited, 1);//April
+   deposited.dollars = deposited.dollars + 10*31;
+   deposited = applyInterest(deposited, 1);//May
+   deposited.dollars = deposited.dollars + 10*30;
+   deposited = applyInterest(deposited, 1);//june
+   deposited.dollars = deposited.dollars + 10*31;
+   deposited = applyInterest(deposited, 1);//July
+   deposited.dollars = deposited.dollars + 10*31;
+   deposited = applyInterest(deposited, 1);//aug
+   deposited.dollars = deposited.dollars + 10*30;
+   deposited = applyInterest(deposited,1);//sep
+   deposited.dollars = deposited.dollars + 10*31;
+   deposited = applyInterest(deposited, 1);//oct
+   deposited.dollars = deposited.dollars+ 10*30;
+   deposited = applyInterest(deposited,1);//nov
+   deposited.dollars = deposited.dollars + 10*31;
+   deposited = applyInterest(deposited, 1);//dec
+   System.out.println(moneyToString(deposited));
+
+
+
+   //c:Pick 5 items and figure out change(include tax)
+   Money[] itemPrice = new Money[5];
+   for (int i = 1; i <= itemPrice.length ; i++) {
+       itemPrice[i-1] = new Money(i, i*10);
+   }//item prices: $1.10, $2.20, $3.30, $4.40, $5.50
+   Money sumItems = new Money();
+   for (int i = 0; i <itemPrice.length ; i++) {
+       sumItems.dollars = sumItems.dollars + itemPrice[i].dollars;
+       sumItems.cents = sumItems.cents + itemPrice[i].cents;
+   }//adds sum
+   while(sumItems.cents>100){
+       sumItems.dollars++;
+       sumItems.cents = sumItems.cents-100;
+   }
+   Money withTax = new Money();
+   withTax = applyInterest(sumItems, 8.25);//applies tax
+   Money totalChange = new Money();
+   totalChange = payWith20(withTax);//gets change
+   System.out.println(moneyToString(totalChange));
+
+
+
+}
+
+
+
+
+//Point Functions
+public static String pointToString(Point p){
+   return "(" + p.xCoordinate + "," + p.yCoordinate + ")";
+}//returns point as a nice string
+
+
+
+
+//returns midpoint
+public static Point midPoint(Point p1, Point p2){
+   Point mid = new Point();
+   mid.xCoordinate = (p1.xCoordinate + p2.xCoordinate)/2;
+   mid.yCoordinate = (p1.yCoordinate + p2.yCoordinate)/2;
+   return mid;
+}
+
+
+
+
+//returns true if point are equal
+public static boolean isEqual(Point p1, Point p2){
+   boolean rv = false;
+   if(p1.xCoordinate == p2.xCoordinate && p1.yCoordinate == p2.yCoordinate){
+       rv = true;
+   }
+   return rv;
+}
+
+
+
+
+//returns what quadrant point is in
+public static int quadrant(Point p){
+   if(p.xCoordinate>0 && p.yCoordinate>0){
+       return 1;
+   }
+   else if(p.xCoordinate<0 && p.yCoordinate>0){
+       return 2;
+   }
+   else if(p.xCoordinate<0 && p.yCoordinate<0){
+       return 3;
+   }
+   else if(p.xCoordinate==0 || p.yCoordinate == 0){
+       return 0;
+   }
+   else{
+       return 4;
+   }
+}
+
+
+
+
+//vertically stretch point
+public static void verticalStretch(Point p, double a){
+   p.yCoordinate = p.yCoordinate*a;
+}
+
+
+
+
+//horizontally stretch point
+public static void horizontalStretch(Point p, double a){
+   p.xCoordinate = p.xCoordinate/a;
+}
+
+
+
+
+
+//vertically shifts point
+public static void verticalShift(Point p, double a){
+   p.yCoordinate = p.yCoordinate + a;
+}
+
+
+
+
+
+//horizontally shifts point
+public static void horizontalShift(Point p, double a){
+   p.xCoordinate = p.xCoordinate + a;
+}
+
+
+
+
+//Test Point fns
+public static void testCodePoint(){
+   //a:
+   Point[] pa = new Point[5];//makes new point array
+   int paIndex = 0;//keeps track of index
+   for (int i = 2; i <=10 ; i=i+2) {
+       pa[paIndex] = new Point(1, 2*i+3);//adds correct value
+       paIndex++;
+   }
+   //b
+   for (int i = 0; i <pa.length ; i++) {
+       verticalStretch(pa[i], 3.0);
+       System.out.println(pointToString(pa[i]));
+   }//vertically stretches by 3
+   //c
+   for (int i = 0; i <pa.length ; i++) {
+       horizontalStretch(pa[i], 2);
+       System.out.println(pointToString(pa[i]));
+   }//H stretch by 2
+
+   //d: Perform vertical shift down one unit
+   for (int i = 0; i <pa.length ; i++) {
+       verticalShift(pa[i], -1);
+       System.out.println(pointToString(pa[i]));
+   }//V shift by -1
+
+   //e: Horizontal Shift right 2 units
+   for (int i = 0; i <pa.length ; i++) {
+       horizontalShift(pa[i], 2);
+       System.out.println(pointToString(pa[i]));
+   }//H shift by 2
+
+   //f:Simulate sine by an array of Points (0,?), //(1.57,?),(3.14,?),(4.71,?),(6.28,?)
+   Point [] sinArray = new Point[5];
+   for (int i = 0; i <sinArray.length ; i++) {
+       sinArray[i] = new Point(i*1.57, Math.sin(i*1.57));
+   }
+   //g: Perform a vertical shift by 2, then a stretch by 2, and print //the results.
+   for (int i = 0; i <sinArray.length ; i++) {
+       verticalShift(sinArray[i], 2);
+       verticalStretch(sinArray[i], 2);
+       System.out.println(pointToString(sinArray[i]));
+   }
+   //h:. Perform a vertical stretch by 2, then a shift by 2, and //print the results.
+   for (int i = 0; i <sinArray.length ; i++) {
+       verticalStretch(sinArray[i], 2);
+       verticalShift(sinArray[i], 2);
+       System.out.println(sinArray[i]);
+   }
+}
+
+
+
