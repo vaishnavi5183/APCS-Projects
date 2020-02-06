@@ -1,0 +1,187 @@
+
+
+
+//task 1
+   public static void play(){
+       Scanner userInput = new Scanner(System.in);
+       String response = "";
+
+       int[] deck = new int[52];
+       int[] hand1 = new int[5];
+       int[] hand2 = new int[5];
+       //fill the deck with ordered cards
+       for (int i = 0; i < 52; i++) {
+           deck[i] = (i+1);
+       }
+       shuffle(deck);
+       System.out.println("Welcome to Poker");
+       System.out.println(arrayToString(deck));
+   }
+
+
+
+
+
+
+   //Shuffle Algorithm: For each card, pick a random card and swap them
+   public static void shuffle(int[] deck){
+       int randomIndex = 0;
+       int storage = 0;
+       for (int i = 0; i <52 ; i++) {
+           //Math.random() gives a double in [0, 1)
+           //including 0, not including 1
+           //Math.random()*52 => 0 - 51.9999
+           //(int)(....) => 0-51 int only
+           randomIndex = (int)(Math.random()*52);//casting, picks random int from 0-51
+           //swap
+           storage = deck[i];
+           deck[i] = deck[randomIndex];
+           deck[randomIndex] = storage;
+
+       }
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+//arrayToString
+   public static String arrayToString(int[] a){
+       String rv = "" + a[0];
+       for (int i = 1; i <a.length ; i++) {
+           rv = rv + "," + a[i];
+       }
+       return rv;
+   }
+
+
+
+
+
+
+
+   //Return numeric value of card
+   public static int face(int card){
+       while(card>13){
+           card = card-13;
+       }
+       return card;
+   }
+
+
+
+
+
+
+   //Should return 1 for spade, 2 for hearts, 3 clover, and 4 diamonds
+   public static int suit(int card){
+       //spade =1, hearts = 2, clover = 3, diamonds = 4
+       if(card <= 13){
+           return 1;
+       }//if card is in the first 13, it is spade
+       else if(card>13 && card <= 26){
+           return 2;
+       }//if card is in 2nd group of 13, it is heart
+       else if(card>26 && card <= 39){
+           return 3;
+       }//if card is in 3rd group of 13, it is a clover
+       else{
+           return 4;
+       }//if none of the conditions above are correct then the card is in the last 13 cards which is a diamond
+   }
+
+
+
+
+
+
+
+
+   //1 = SA and 25 = HQ
+   public static String cardName(int card){
+       String rv = "";
+       if(card <= 13){
+           rv = rv + "S";
+       }
+       if(card > 13 && card <= 26){
+           rv = rv + "H";
+       }
+       if(card>26 && card <= 39){
+           rv = rv + "C";
+       }
+       if(card>39 && card <= 52){
+           rv = rv + "D";
+       }//Adds Suit
+       if(card == 1 || card == 14 || card == 27 || card == 40){
+           rv = rv + "A";
+       }
+      if(card == 2 || card == 15 || card == 28 || card == 41){
+           rv = rv + "2";
+       }
+       if(card == 3 || card == 16 || card == 29 || card == 42){
+           rv = rv + "3";
+       }
+        if(card == 4 || card == 17 || card == 30 || card == 43){
+           rv = rv + "4";
+       }
+       if(card == 5 || card == 18 || card == 31 || card == 44){
+           rv = rv + "5";
+       }
+      if(card == 6 || card == 19 || card == 32 || card == 45){
+           rv = rv + "6";
+       }
+       if(card == 7 || card == 20 || card == 33 || card == 46){
+           rv = rv + "7";
+       }
+       if(card == 8 || card == 21 || card == 34 || card == 47){
+           rv = rv + "8";
+       }
+        if(card == 9 || card == 22 || card == 35 || card == 48){
+           rv = rv + "9";
+       }
+        if(card == 10 || card == 23 || card == 36 || card == 49){
+           rv = rv + "10";
+       }
+        if(card == 11 || card == 24 || card == 37 || card == 50){
+           rv = rv + "J";
+       }
+       if(card == 12 || card == 25 || card == 38 || card == 51){
+           rv = rv + "Q";
+       }
+     if(card == 13 || card == 26 || card == 39 || card == 52){
+           rv = rv + "K";
+       }//Adds number
+       return rv;
+   }
+
+
+
+
+
+
+
+   //An array of cards return a string
+   public static String handToString(int[] hand) {
+       String rv = "";
+       for (int i = 0; hand != null && i < hand.length; i++) {
+           if (i == 0) {
+               rv = cardName(hand[0]);
+           } //If statement makes sure there is no space between the first card and the first bracket
+           else {
+               rv = rv + " " + cardName(hand[i]);
+           }
+           rv = "[" + rv + "]";
+       }
+       return rv;
+   }
+
+
+
+
