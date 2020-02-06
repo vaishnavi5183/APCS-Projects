@@ -1,0 +1,344 @@
+
+
+
+
+
+
+
+
+
+public static int[][] createMap(int r, int c){
+   int[][] map = new int[r][];//creates new array with rows
+   for (int i = 0; i <map.length ; i++) {
+       map[i] = new int[c];//fills rows with appropriate number of columns
+   }
+   return map;//returns final array
+}//end createMap
+
+
+
+
+
+public static int[][] createMap(){
+   String[][] mapCopy = {{"Y", "*", "_","_", "_", "_", "_", "_", "_", "_"},
+           { "_", "*", "_", "*", "_", "*", "_", "*", "*", "_"},
+           {"_", "_", "_", "*", "_", "_", "_", "*", "_", "_"},
+           {"*", "_", "*", "_", "*", "*", "*", "_", "_", "*"},
+           {"_", "_", "_", "_", "_", "_", "*", "_", "*", "_"},
+           {"_", "*", "*", "*", "_", "_", "_", "*", "_", "_"},
+           {"_", "_", "_", "_","*", "*", "_", "_", "_", "*"},
+           {"_", "*", "_", "_", "*", "_", "*", "_", "*", "_"},
+           { "_", "_", "_", "*" ,"_", "_", "_", "_", "_", "_"},
+           { "_", "*", "_", "_", "*", "_", "_", "*", "_", "F"}
+   };//this is the map that needs to be returned
+   int[][] map = new int[10][];
+   for (int i = 0; i <map.length ; i++) {
+       map[i] = new int[10];
+   }//makes new array
+   for (int i = 0; i <map.length ; i++) {
+       for (int j = 0; j <map[i].length ; j++) {
+           if(mapCopy[i][j].compareTo("Y")==0){
+               map[i][j] = 1;
+           }
+           else if(mapCopy[i][j].compareTo("F")==0){
+               map[i][j] = 2;
+           }
+           else if(mapCopy[i][j].compareTo("*")==0){
+               map[i][j] = 3;
+           }
+           else{
+               map[i][j] = 0;
+           }
+       }
+   }//fills in map with appropriate numbers according to mapCopy
+   return map;
+}//end createMap
+
+
+
+
+
+public static int[][] createMap(int n){
+   int[][] newMap = createMap(10, 10);
+   while(n>0){
+       int randomIndex1 = (int)(8.0*Math.random()+1);
+       int randomIndex2 = (int)(8.0*Math.random()+1);
+       newMap[randomIndex1][randomIndex2] = 3;
+       n = n-1;
+   }//adds appropriate number of walls in random indexes
+   newMap[0][0] = 1;//adds you to map
+   newMap[9][9] = 2;//adds finish to map
+   return newMap;
+}//end createMap
+
+
+
+
+
+public static String getSymbol(int value){
+   if(value == 3){
+       return "*";
+   }//returns a wall
+   else if(value == 2){
+       return "F";
+   }//returns finish
+   else if(value ==1){
+       return "Y";
+   }//return you
+   else{
+       return "_";
+   }//return empty space
+}//end getSymbol
+
+
+
+
+
+public static void printMap(int[][] m){
+   for (int i = 0; i <m.length ; i++) {
+       for (int j = 0; j <m[i].length ; j++) {
+           System.out.print(m[i][j] + " ");//adds each element of map with space
+       }
+       System.out.println();//adds indent
+   }
+}//end printMap
+
+
+
+
+
+public static String mapToString(int[][] m){
+   String map = "";
+   for (int i = 0; i <m.length ; i++) {
+       for (int j = 0; j <m[i].length ; j++) {
+           map = map + m[i][j] + " ";
+       }
+       map = map + "\n";
+   }//like printMap, except everything is in a string
+   return map;
+}//end mapToString
+
+
+
+
+
+public static int[] find(int[][] m, int value){
+   int[] found = null;//returns null if value isn't found
+   for (int i = 0; i <m.length && found==null ; i++) {
+       for (int j = 0; j <m[i].length && found == null ; j++) {
+           if(m[i][j] == value){
+               found = new int[2];
+               found[0] = i;
+               found[1] = j;
+           }
+       }
+   }//looks for value in array and adds those coordinates in 2d array
+   return found;
+}//end find
+
+
+
+
+
+public static boolean canGoN(int[][] m ){
+   boolean rv = false;
+   int[] yourLocation = find(m, 1);
+   if(yourLocation[0]!=0 && m[yourLocation[0]-1][yourLocation[1]]==0){
+       rv = true;
+   }//checks if there are spaces available above you
+   return rv;
+}//end canGoN
+
+
+
+
+
+public static boolean canGoS(int[][] m){
+   boolean rv = false;
+   int[] yourLocation = find(m, 1);
+   if(yourLocation[0]!=m.length-1 && m[yourLocation[0]+1][yourLocation[1]]== 0){
+       rv = true;
+   }//checks if there is space below you
+   return rv;
+}//end canGoS
+
+
+
+
+
+public static boolean canGoE(int[][] m){
+   boolean rv = false;
+   int[] yourLocation = find(m, 1);
+   if(yourLocation[1] != m[yourLocation[0]].length-1 && m[yourLocation[0]][yourLocation[1]+1]==0){
+       rv = true;
+   }//Checks if you can go right from where you are
+   return rv;
+}//end canGoE
+
+
+
+
+
+public static boolean canGoW(int[][] m){
+   boolean rv = false;
+   int[] yourLocation = find(m, 1);
+   if(yourLocation[1]!=0 && m[yourLocation[0]][yourLocation[1]-1]==0){
+       rv = true;
+   }//checks if there is space left of you
+   return rv;
+}//end canGoW
+
+
+
+
+
+
+//Challenge 7
+public static String minimalPath(int[][] m){
+   //Returns a string with the Minimal Path
+   String minimal = "";
+   while(canGoN(m)){
+       minimal = minimal + "N";
+   }
+   while(canGoE(m)){
+       minimal = minimal + "E";
+   }
+   while(canGoS(m)){
+       minimal = minimal + "S";
+   }
+   while(canGoW(m)){
+       minimal = minimal + "W";
+   }
+   return minimal;//returns minimal pathway
+}
+
+
+
+
+
+//Challenge 8
+public static int[][][] create3dMap(int r, int c, int numFloors){
+   int[][][] map = new int[numFloors][][];//adds floors
+   for (int i = 0; i <map.length ; i++) {
+       map[i] = new int[r][];//adds rows
+       for (int j = 0; j <map[i].length ; j++) {
+           map[i][j] = new int[c];//adds columns
+       }
+   }
+   return map;
+}//end create3dMap
+
+
+
+
+//Challenge 8
+public static int[][][] create3dMap(){
+   int[][][] map = create3dMap(5 ,5, 3);
+   int n = 1;
+   while(n<10){
+       int floors = (int)(2.0*Math.random());
+       int r = (int)(2.0*Math.random()+1);
+       int c = (int)(2.0*Math.random()+1);
+       map[floors][r][c] = 3;
+       n++;
+   }//adds random walls
+   map[0][0][0] = 1;//adds you
+   map[2][1][3] = 5;//adds down ladder
+   map[0][4][4] = 4;//adds up ladder
+   map[1][3][0] = 4;//adds up ladder
+   return map;
+}//end create3dMap
+
+
+
+
+
+public static int[][][] create3dMap(int numFloors){
+   int[][][] map = create3dMap(5, 5, numFloors);
+   //3 Up ladders
+   int u = 1;
+   while(u<4){
+       int f = (int)((float)numFloors-2*Math.random());
+       int r = (int)(2.0*Math.random()+1);
+       int c = (int)(2.0*Math.random()+1);
+       map[f][r][c] = 4;
+       u++;
+   }//adds 3 up ladders in random locations
+   int d = 1;
+   while(d<4){
+       int f = (int)((float)numFloors-2*Math.random()+1);
+       int r = (int)(2.0*Math.random()+1);
+       int c = (int)(2.0*Math.random()+1);
+       map[f][r][c] = 5;
+       d++;
+   }//adds 3 down ladders in random locations
+   return map;
+}//end create3dMap
+
+
+
+
+
+//Finds your location in 3d game board(made my own fn, to use it in other fns)
+public static int[] find(int[][][] m){
+   int[] location = null;
+   for (int i = 0; i <m.length && location==null; i++) {
+       for (int j = 0; j <m[i].length && location ==null ; j++) {
+           for (int k = 0; k <m[i][j].length && location==null; k++) {
+               if(m[i][j][k]==1){
+                   location = new int[3];
+                   location[0] = i;
+                   location[1] = j;
+                   location[2] = k;
+               }
+           }
+       }
+   }//similar to the other find, except returns array with 3 elements, not 2
+   return location;
+}//end find
+
+
+
+
+
+public static boolean canGoU(int[][][] m){
+   boolean rv = false;
+   int[] location = find(m);
+   if(location[0]!=m.length-1 && m[location[0]+1][location[1]][location[2]]==0 ){
+       rv = true;
+   }//checks if above floor is empty
+   return rv;
+}//end canGoU
+
+
+
+
+
+public static boolean canGoD(int[][][] m){
+   boolean rv = false;
+   int[] location = find(m);
+   if(location[0]!=0 && m[location[0]-1][location[1]][location[2]]==0){
+       rv = true;
+   }//checks if below floor is empty
+   return rv;
+}//end canGoD
+
+
+
+
+
+public static String mapToString(int[][][] m){
+   String rv = "";
+   for (int i = 1; i <=m.length ; i++) {
+       rv = rv + "Level: " + i + "\n";
+       for (int j = 0; j <m[i-1].length ; j++) {
+           for (int k = 0; k <m[i-1][j].length ; k++) {
+               rv = rv + m[i-1][j][k] + " ";
+           }
+           rv = rv + "\n";
+       }
+       rv = rv + "\n";
+   }//like the other mapToString, except for 3d arrays
+   return rv;
+}//end mapToString
+
