@@ -1,0 +1,97 @@
+# This program is a fortune teller. It asks the user to answer some questions
+#and based on the response, it gives the player a fortune.
+#everything seems to work!
+# Core Concepts: print(), imput(), comments, escape characters, using single quptes and double quotes for strings
+# Import Statements, conditions, the difference between = and ==,
+#if statements, the time.sleep() functions, creating your own functions, elif statements
+import time
+def directions(): 
+    print('Welcome to FORTUNE TELLER')
+    time.sleep(0.75)
+    print('Once upon a time, there was a magical human being.')
+    print('the human could tell fortunes with a snap of his fingers.')
+    time.sleep(4)
+    print('However, he hated using his talents to help other human beings')
+    time.sleep(3)
+    print('One day, an old woman came to his house, and asked him to use his talents to help her find something in the future.')
+    print('The human being scoffed, and refused to help her.')
+    time.sleep(5)
+    print('Suddenly, lightning roared outside his house, and he heard laughing from where the old woman was standing.')
+    time.sleep(3)
+    print('She was a witch!')
+    print('As he looked at her in horror, the witch snapped her wand at him, and cursed him for the rest of his life')
+    print('So that he could never refuse to tell anyone their fortune.')
+    time.sleep(5)
+    print('Now, today is your lucky day!, you can use the magical human beings\'s power to figure out your fortune!')
+    print('Just answer the questions asked truthfully and correctly')
+
+def getfortune():#This function will return a fortune
+    print('Are you born in the first 20 days of the month. (type yes or no).')
+    dayBorn=input()
+    if dayBorn == 'yes':
+       print('Type the month you were born in, with all lowercase letters')
+       monthBorn=input()
+       if monthBorn == 'january':
+           print('You are very responsible, and serious by nature. This makes you a good leader. However, in the future, you may face some annoyance from loved ones,')
+       elif monthBorn == 'february':
+           print('You are very progressive, and independent. However, you are very emotionally driven which can be harmful in the future.')
+       elif monthBorn == 'march':
+           print('You are very gentle and compassionate. But, sometimes you can be a little overtrusting. Remember that not everyone can be easily trusted.')
+       elif monthBorn == 'april':
+           print('You are very courageous and confident. But, sometimes you can be a little too aggressive, which will bring trouble within some of your relationships.')
+       elif monthBorn == 'may':
+           print('You are very stubborn and don\'t like change too much, but it is important that you welcome change a little by little for a better future.')
+       elif monthBorn == 'june':
+           print('You are very adaptable and flexible by nature. However, you sometimes change in order to fit in. Try being yourself!')
+       elif monthBorn == 'july':
+           print('You are very sensitive, and also trust people easily. It\'s important that you don\'t trust people too easily though.')
+       elif monthBorn == 'august':
+           print('You are very creative and passionate. However, sometimes you can also be a little inflexible, which can bring problems.')
+       elif monthBorn == 'september':
+           print('You are very loyal and hardworking, however you must learn to be more easy on yourself.')
+       elif monthBorn == 'october':
+           print('You are very fair and diplomatic, but you are very indecisive which will lead to some problems in the future.')
+       elif monthBorn == 'november':
+           print ('You are very brave and passionate, but you also can be distrusting which will make it hard for you to make fast friends,')
+       elif monthBorn == 'december':
+           print('You are very generous and have a good sense of humor, however you are impatient and promise too much, which will lead some people to be dissapointed in you.')
+       else:
+           print('Sorry, I can\'t tell your fortune, as you didn\'t follow the directions.')
+    if dayBorn == 'no':
+        print('Type the month you were born in, with all lowercase letters.')
+        monthBorn2 = input()
+        if monthBorn2 == 'january':
+            print('You are very progressive, and independent. However, you are very emotionally driven which can be harmful in the future.')
+        elif monthBorn2 == 'february':
+            print('You are very gentle and compassionate. But, sometimes you can be a little overtrusting. Remember that not everyone can be easily trusted.')
+        elif monthBorn2== 'march':
+            print('You are very courageous and confident. But, sometimes you can be a little too aggressive, which will bring trouble within some of your relationships.')
+        elif monthBorn2 == 'april':
+            print('You are very stubborn and don\'t like change too much, but it is important that you welcome change a little by little for a better future.')
+        elif monthBorn2 == 'may':
+            print('You are very adaptable and flexible by nature. However, you sometimes change in order to fit in. Try being yourself!')
+        elif monthBorn2 == 'june':
+            print('You are very sensitive, and also trust people easily. It\'s important that you don\'t trust people too easily though.')
+        elif monthBorn2 == 'july':
+            print('You are very creative and passionate. However, sometimes you can also be a little inflexible, which can bring problems.')
+        elif monthBorn2 == 'august':
+            print('You are very loyal and hardworking, however you must learn to be more easy on yourself.')
+        elif monthBorn2 == 'september':
+            print('You are very fair and diplomatic, but you are very indecisive which will lead to some problems in the future.')
+        elif monthBorn2 == 'october':
+            print('You are very brave and passionate, but you also can be distrusting which will make it hard for you to make fast friends,')
+        elif monthBorn2 == 'november':
+            print('You are very generous and have a good sense of humor, however you are impatient and promise too much, which will lead some people to be dissapointed in you.')
+        elif monthBorn2 == 'december':
+            print('You are very progressive, and independent. However, you are very emotionally driven which can be harmful in the future.')
+        else:
+            print('Sorry, I can\'t tell your fortune, as you didn\'t follow the directions.')
+
+    
+            
+print('Press Enter to see the directions')
+input()
+directions()
+print('Press enter to get your fortune.')
+input()
+getfortune()
