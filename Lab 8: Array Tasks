@@ -1,0 +1,359 @@
+
+//takes int array and returns string
+public static String arrayToString(int[] a){
+   if(a==null){
+       return "null";
+   }
+   else {
+       String rv = "{" + a[0];
+
+       for (int i = 1; i < a.length; i++) {
+           rv = rv + ", " + a[i];
+       }//end for
+       rv = rv + "}";
+       return rv;
+   }//end else
+}//end arrayToString
+
+
+
+
+//takes 2d array and returns a string
+public static String arrayToString(int[][] a){
+   if(a==null){
+       return "null";
+   }//null check
+   else {
+       String rv = "{" + arrayToString(a[0]);
+       for (int i = 1; i < a.length; i++) {
+           rv = rv + "," + "\n" + " " + arrayToString(a[i]);
+       }//end for
+       rv = rv + "}";
+       return rv;
+   }//end else
+}//end arrayToString
+
+
+
+
+public static Boolean ticTacToeWinner(int[][] a){
+   //returns true if x or o is winner
+   //else returns false
+   Boolean rv = false;
+   int storage = -2;
+   int count = 0;
+   for (int i = 0; i <a.length && count!=2 ; i++) {
+       count = 0;
+       for (int j = 0; j <a[i].length ; j++) {
+           if(a[i][j] != 0 && storage== a[i][j]){
+               count++;
+           }
+           storage = a[i][j];
+       }
+   }//checks rows
+   if(count == 2){
+       rv = true;
+   }
+   else{
+       rv = false;
+       count = 0;
+       storage = -2;
+   }
+   for (int i = 0; i <a.length && count!=2 ; i++) {
+       for (int j = 0; j <1 ; j++) {
+           if(a[i][j]!=0 && a[i][j]==storage){
+               count++;
+           }
+           storage = a[i][j];
+       }
+   }//checks first column
+   if(count == 2){
+       rv = true;
+   }
+   else{
+       rv = false;
+       count = 0;
+       storage = -2;
+   }
+   for (int i = 0; i <a.length && count != 2 ; i++) {
+       for (int j = 1; j <2 ; j++) {
+           if(a[i][j]!=0 && a[i][j] == storage){
+               count++;
+           }
+           storage = a[i][j];
+       }
+   }//checks 2nd column
+   if(count == 2){
+       rv = true;
+   }
+   else{
+       rv = false;
+       count = 0;
+       storage = -2;
+   }
+   for (int i = 0; i <a.length && count !=2 ; i++) {
+       for (int j = 2; j <3 ; j++) {
+           if(a[i][j]!= 0 && a[i][j] == storage){
+               count++;
+           }
+           storage = a[i][j];
+       }
+   }//checks 3rd column
+   if(count == 2){
+       rv = true;
+   }
+   else{
+       rv = false;
+       count = 0;
+       storage = -2;
+   }
+   for (int i = 0; i <a.length && count!=2 ; i++) {
+       for (int j = i; j == i; j++) {
+           if(a[i][j]!=0 && a[i][j] == storage){
+               count++;
+           }
+           storage = a[i][j];
+       }
+   }//checks first diagonal
+   if(count == 2){
+       rv = true;
+   }
+   else{
+       rv = false;
+       count = 0;
+       storage = -2;
+   }
+   for (int i = 0; i<a.length && count!=2; i++) {
+       for (int j = 2-i; j ==2-i ; j++) {
+           if(a[i][j]!=0 && a[i][j] == storage){
+               count++;
+           }
+           storage = a[i][j];
+       }
+   }//checks 2nd diagonal
+   if(count == 2){
+       rv = true;
+   }
+   else{
+       rv = false;
+   }
+
+   return rv;
+}//end ticTacToeWinner
+
+
+
+
+//calculates sum of all elements in 2d array
+public static int sum(int[][] a){
+   int sum = 0;
+   for (int i = 0; i <a.length ; i++) {
+       for (int j = 0; j < a[i].length; j++) {
+           sum = sum + a[i][j];
+       }
+   }
+   return sum;
+}//end sum
+
+
+
+//calculates sum of major diagonal of 2d array
+public static int sumMajor(int[][] a){
+   int sumMajor = 0;
+   for (int i = 0; i <a.length ; i++) {
+       for (int j = i; j ==i; j++) {
+           sumMajor = sumMajor + a[i][j];
+       }
+   }//adds major sum
+   return sumMajor;
+}//end sumMajor
+
+
+
+
+
+//calculates sum of minor diagonal of 2d array
+public static int sumMinor(int[][] a){
+   int sumMinor = 0;
+   for (int i = 0; i <a.length ; i++) {
+       for (int j = a[i].length-1-i; j == a[i].length-1-i ; j--) {
+           sumMinor = sumMinor + a[i][j];
+       }
+   }
+   return sumMinor;
+}//end sumMinor
+
+
+
+
+//return min od 1d array
+public static int min(int[] a){
+   if(a==null){
+       return Integer.MAX_VALUE;
+   }//null check
+   else {
+       int min = a[0];
+       for (int i = 0; i < a.length; i++) {
+           if (a[i] < min) {
+               min = a[i];
+           }
+       }
+       return min;
+   }
+}//end min
+
+
+
+
+//calculate min of 2d array using 7
+public static int min(int[][] a){
+   if(a==null){
+       return Integer.MAX_VALUE;
+   }
+   else {
+       int storage1;
+       int storage2;
+       int min = 100000000;
+       for (int i = 0; i < a.length - 1; i++) {
+           storage1 = min(a[i]);
+           storage2 = min(a[i + 1]);
+           if (storage1 < storage2) {
+               min = storage1;
+           } else {
+               min = storage2;
+           }
+       }
+       return min;
+   }
+}//end min
+
+
+
+
+
+//calculate min of array not using 7
+public static int min2(int[][] a){
+   if(a==null){
+       return Integer.MAX_VALUE;
+   }
+   else {
+       int min = a[0][0];
+       for (int i = 0; i < a.length; i++) {
+           for (int j = 0; j < a[i].length; j++) {
+               if (a[i][j] < min) {
+                   min = a[i][j];
+               }
+           }
+       }
+       return min;
+   }
+}//end min2
+
+
+
+
+//rotates square 2d array 90 degrees
+public static int[][] rotate(int[][] a){
+   for (int i = 0; i <(a.length)/2 ; i++) {
+       for (int j = i; j <a.length-1-i ; j++) {
+           int storage = a[i][j];
+           a[i][j] = a[a.length-1-j][i];//rotates edge
+           a[a.length-1-j][i] = a[a.length-1-i][a.length-1-j];//rotates edge
+           a[a.length-1-i][a.length-1-j] = a[j][a.length-i-1];//rotates middle
+           a[j][a.length-1-i] = storage;//rotates middle
+       }
+   }
+   return a;
+}//end rotate
+
+
+
+
+//expands 2d array
+public static int[][] expand(int[][] a){
+   if(a==null){
+       return null;
+   }//null check
+   else {
+       int[][] expanded = new int[a.length * 2][];
+       for (int i = 0; i < expanded.length; i++) {
+           expanded[i] = new int[a[i / 2].length * 2];
+       }//creates expanded array
+       int aArray = 0;//keeps track of original array index
+       int aIndex = 0;
+       int countIndex = 0;
+       int countArray = 0;
+       for (int i = 0; i < expanded.length; i++) {
+           if (countArray == 2) {
+               aArray++;
+               countArray = 0;
+           }
+           for (int j = 0; j < expanded[i].length; j++) {
+               expanded[i][j] = a[aArray][aIndex];
+               countIndex++;
+               if (countIndex == 2) {
+                   aIndex++;
+                   countIndex = 0;
+               }
+           }
+           aIndex = 0;
+           countArray++;
+       }//adds values into expanded
+       return expanded;
+   }
+}//end expanded
+
+
+
+
+//prints patterns given
+public static void patternPrint(){
+   for (int i = 1; i <=5 ; i++) {
+       for (int j = 1; j <= i ; j++) {
+           System.out.print(j + " ");
+       }
+       System.out.println();
+   }
+   System.out.println();
+   for (int i = 5; i >= 1 ; i--) {
+       for (int j = i; j >= 1 ; j--) {
+           System.out.print(j + " ");
+       }
+       System.out.println();
+   }
+   System.out.println();
+   int count = 5;
+   for (int i = 1; i <=5 ; i++) {
+       for (int j = 1; j <=i ; j++) {
+           System.out.print(count + " ");
+       }
+       count--;
+       System.out.println();
+   }
+}
+
+
+
+
+
+
+//prints pascals triangle
+public static int[][] pascalsTriangle(int n){
+   int[][] triangle = new int[n][];
+   for (int i = 1; i <=n ; i++) {
+       triangle[i-1] = new int[i];
+   }
+   for (int i = 0; i <triangle.length ; i++) {
+       for (int j = 0; j <triangle[i].length ; j++) {
+           if(j==0 || j== triangle[i].length-1) {
+               triangle[i][j] = 1;//adds 1 to the edges
+           }
+           else{
+               triangle[i][j] = triangle[i-1][j-1] + triangle[i-1][j];
+           }
+       }
+   }
+   return triangle;
+}//end pascalsTriangle
+
+
