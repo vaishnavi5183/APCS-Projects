@@ -1,0 +1,321 @@
+//MAth FUnction, returns smaller of a and b
+public static int min(int a, int b) {
+   if (a < b) {
+       return a;
+   } //end if
+else {
+       return b;
+   }//end else
+}//end min
+
+
+
+
+
+//MAth Function, returns smallest element
+public static int min(int[] a) {
+   int smallestDigit = a[0];
+   for (int i = 0; i < a.length; i++) {
+       if (a[i] < smallestDigit) {
+           smallestDigit = a[i];
+       }//end if
+   }//end for loop
+   return smallestDigit;
+}//end min
+
+//Math Fn; adds element by index
+public static int[] add(int[] a, int[] b){
+   int length;
+   if(a.length == b.length || a.length>b.length){
+       length = a.length;
+   }
+   else{
+       length = b.length;
+   }
+   int[] rv = new int[length];//new array
+   if(a.length == b.length){
+       for (int i = 0; i < a.length; i++) {//add a and b by index
+           rv[i] = a[1] + b[i];
+       }//end for loop
+   }//end if
+   else if (a.length > b.length) {
+       for (int i = 0; i < b.length; i++) {
+           rv[i] = a[i] + b[i];
+       }//end for
+       int indexesRemaining =b.length;
+       for (int i = indexesRemaining; i < rv.length; i++) {
+           rv[i] = a[i];
+       }//for loop, adds remaining values from a
+   }//end else if
+   else {
+       for (int i = 0; i < a.length; i++) {
+           rv[i] = a[i] + b[i];
+       }//end for loop
+       int indexesRemaining = a.length;
+       for (int i = indexesRemaining; i < rv.length; i++) {
+           rv[i] = b[i];
+       }//end for loop, adds remaining values from b
+   }//end else
+   return rv;
+
+}//end add
+
+
+
+
+
+
+//Math fn; returns mode
+public static int mode(int[] a){
+   int winner = a[0];
+   int winnerCount = 0;
+   int currentCount = 0;
+   for(int i =0; i<a.length; i++){
+       currentCount = 0;
+       for(int j =0; j<a.length; j++){
+           if(a[j] == a[i]){
+               currentCount++;
+           }//end if
+           if(currentCount>winnerCount){
+               winnerCount = currentCount;
+               winner = a[i];
+           }//end if
+       }//end for
+   }//end for
+ return winner;
+}//end mode
+
+
+
+
+
+//General Fn, Returns a nice looking string
+public static String prettyPrint(int[] a) {
+   String rv = " {";
+   if(a==null || a.length ==0){
+       return "null";
+   }//end if
+ else{
+  for (int i = 0; i < a.length; i++) {
+       rv = rv  + a[i] +",";
+   }//end for; adds each digit to string
+   rv = rv + " }";//adds last bracket
+   return rv;
+}//end else
+}//end pretyPrint
+
+
+
+
+
+
+//General Fn; returns a seperate copy of array
+public static int[] copy(int[] a) {
+   int[] copy = new int[a.length];
+   for (int i = 0; i < a.length; i++) {
+       copy[i] = a[i];
+   }//end for
+   return copy;
+}//end copy
+
+
+//General Fn; 
+// Returns a new array with extra spaces added (filled with 0's) or truncated 
+public static int[] resize(int[] a, int newLength) {
+   int[] resized = new int[newLength];
+   if (newLength <= a.length) {
+       for (int i = 0; i < resized.length; i++) {
+           resized[i] = a[i];
+       }//end for; 
+   } //end if
+else {
+       for (int i = 0; i < a.length; i++) {
+           resized[i] = a[i];
+       }//end for
+       int indexOfZeros = a.length;
+       for (int i = indexOfZeros; i < resized.length; i++) {
+           resized[i] = 0;
+       }//end for; adds zeros to empty spaces
+   }//end else
+   return resized;
+}//end resize
+
+
+
+
+
+
+
+
+
+
+//General Fn; returns array with a appended to b
+public static int[] append(int[] a, int[] b) {
+   int length;
+   if(a==null){
+       length = b.length;
+   }//end if
+   else if(b==null){
+       length = a.length;
+   }//end else if
+   else{
+       length = a.length + b.length;
+   }//end else
+
+   int[] appended = new int[length];
+   if (a == null) {
+       for (int i = 0; i < appended.length; i++) {
+           appended[i] = b[i];
+       }//end for
+   }//end if
+   else if (b == null) {
+       for (int i = 0; i < appended.length; i++) {
+           appended[i] = a[i];
+       }//end for
+   }//end else if
+   else {
+       for (int i = 0; i < a.length; i++) {
+           appended[i] = a[i];
+       }//end for
+       int indexStartB = a.length;
+       for (int i = 0; i < b.length; i++) {
+           appended[indexStartB + i] = b[i];
+       }//end for; adds b to a
+   }//end else
+   return appended;
+}//end append
+
+
+
+
+
+//General fn; Removes single element from the array
+public static int[] remove(int[] a, int index){
+   int[] removed = new int[a.length -1];
+   for (int i = 0; i <removed.length ; i++) {
+       if(i >= index){
+           removed[i] = a[i+1];
+       }//end if; removes, and moves everything over
+       else{
+           removed[i] = a[i];
+       }//end else
+   }//end for
+   return removed;
+}//end remove
+
+
+
+
+
+
+//General fn; Like substring, returns the subarray that starts at //firstIncluded, and ends at firstExcluded-1.
+public static int[] subArray(int[] a, int firstIncluded, int firstExcluded){
+   int length;
+   if(firstExcluded<firstIncluded){
+       length = 0;
+   }//end if
+   else if(firstExcluded>a.length || firstIncluded>a.length ){
+       length = 0;
+   }//end if
+   else{
+       length = firstExcluded-firstIncluded;
+   }//end else
+   int[] rv = new int[length];
+   for (int i = 0; i < rv.length; i++) {
+       rv[i] = a[firstIncluded + i];
+   }//end for
+   return rv;
+}//end subArray
+
+
+
+
+
+//Sorting fn; sort using bubble sort
+public static void makeSorted(int[] a){
+   int storage = 0;
+   for (int i = 0; i <a.length-1; i++) {
+       for (int j = 0; j <a.length-1-i ; j++) {
+           if(a[j]>a[j+1]){
+               storage = a[j];
+               a[j] = a[j+1];
+               a[j+1] = storage;
+           }//end if; if element is greater than element on right, swap them
+       }//end for
+   }//end for
+   System.out.println(prettyPrint(a));
+}//end makeSorted
+
+
+
+
+
+
+
+
+
+//Sorting fn; Return an ascending sorted version of the argument using Bubble //Sort without changing the argument.
+public static int[] sort(int[] a){
+   int[] rv = new int[a.length];
+   for (int i = 0; i <rv.length ; i++) {
+       rv[i] = a[i];
+   }//end for; create copy of argument
+   int storage = 0;
+   for (int i = 0; i <rv.length-1; i++) {
+       for (int j = 0; j <rv.length-1-i ; j++) {
+           if(rv[j]>rv[j+1]){
+               storage = rv[j];
+               rv[j] = rv[j+1];
+               rv[j+1] = storage;
+           }//end if
+       }//end for
+   }//end for; bubble sort
+ return rv;
+}//end sort
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Sorting fn; combine a and b in ascending order
+public static int[] merge(int[] a, int[] b){
+   int[] rv = new int[a.length + b.length];//new array
+   int indexA =0, indexB =0, rvIndex = 0;//index numbers
+   while(indexA<a.length && indexB<b.length){
+       if(a[indexA]<b[indexB]){
+           rv[rvIndex] = a[indexA];
+           indexA++;//index of a is moved up if element of a<element b
+       }//end if
+       else{
+           rv[rvIndex] = b[indexB];
+           indexB++;//index of b is moved up if element of b<element a
+       }//end else
+       rvIndex++;//increases index of array
+   }//end while
+   if(indexA<a.length){
+       for (int i =indexB+indexA ; i <rv.length ; i++) {
+           int aRemainingIndex = indexA;
+           rv[i] = a[aRemainingIndex];
+           indexA++;
+       }//end for; adds remaining a elements, if they are left
+   }//end if
+   if(indexB<b.length){
+       for (int i = indexB+indexA; i <rv.length ; i++) {
+           int bRemainingIndex = indexB;
+           rv[i] = b[bRemainingIndex];
+           indexB++;
+       }//end for; adds remaining b elements; if left
+   }//end if
+
+return rv;
+}//end merge
+
+
